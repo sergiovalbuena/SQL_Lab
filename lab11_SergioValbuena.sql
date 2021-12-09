@@ -54,14 +54,9 @@ where e.salary > 5000
 
 /*** QUERY 5 ***/
 /* USING A SUBQUERY, Write a query that will display the last name and salary of every employee who reports to Gerald Cambrault. (There is more than one Cambrault in the database so you must be careful to check the first name too.) Be sure to handle case. */
-SELECT e.last_name as "employee last name", m.last_name as "Manager Last Name", m.first_name as "Manager First Name", concat('$ ',format(e.salary,2)) as "employee salary" 
-FROM employees e INNER JOIN employees m
-ON e.manager_id = m.employee_id
-WHERE upper(m.last_name) = "Cambrault"
-AND upper(m.first_name) = "Gerald"
-
-/* :( I tryed  so hard to do with subquery but couldnt, here is the same result tho*/
-
+SELECT last_name, salary FROM employees 
+WHERE manager_id = 
+(SELECT employee_id FROM employees WHERE UPPER(last_name) LIKE "CAMBRAULT" AND UPPER(first_name) LIKE "GERALD");
 
 /*** QUERY 6 ***/
 /* You have been hired by this company in the IT department as a programmer.
